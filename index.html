@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة زيادة المتابعين الاحترافية</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        .dashboard {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 450px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .dashboard h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .dashboard h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #fff;
+        }
+        .dashboard input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+        .dashboard input::placeholder {
+            color: #ddd;
+        }
+        .dashboard button {
+            width: 100%;
+            padding: 12px;
+            background-color: #E1306C;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .dashboard button:hover {
+            background-color: #C13584;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .result h3 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .result p {
+            font-size: 14px;
+            color: #ddd;
+        }
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .social-links img {
+            width: 20px;
+            height: 20px;
+        }
+        .developer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #000;
+        }
+        .developer a {
+            color: #E1306C;
+            text-decoration: none;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+        }
+        .username {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: none;
+        }
+        .progress-bar-fill {
+            height: 10px;
+            background-color: #E1306C;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+        .followers-count {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
+        .free-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .conditions {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ddd;
+            text-align: left;
+        }
+        .conditions ul {
+            padding-right: 20px;
+        }
+        .conditions li {
+            margin-bottom: 10px;
+        }
+        .screenshot-upload {
+            margin-top: 20px;
+            display: none;
+        }
+        .screenshot-upload input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="logo">
+            <div class="username">akram___trader</div>
+        </div>
+        <h1>منصة زيادة المتابعين الاحترافية</h1>
+        <h2>احصل على متابعين حقيقيين بسرعة وسهولة</h2>
+        <div class="free-label">مجانًا!</div>
+        <input type="text" id="username" placeholder="ادخل اسم المستخدم">
+        <button onclick="startSendingFollowers()">بدء إرسال المتابعين</button>
+
+        <div class="loading" id="loading">
+            جاري إرسال المتابعين... انتظر قليلاً ⌛
+        </div>
+
+        <div class="result" id="result">
+            <h3>تم إرسال المتابعين بنجاح!</h3>
+            <p>تم إرسال 1000 متابع إلى حسابك بنجاح.</p>
+            <p><strong>اسم المستخدم:</strong> <span id="resultUsername"></span></p>
+        </div>
+
+        <div class="conditions" id="conditions">
+            <h3>الشروط المطلوبة:</h3>
+            <ul>
+                <li>قم بإرسال حساب <strong>akram___trader</strong> لـ 20 شخص.</li>
+                <li>قم بنشر الحساب في الستوري.</li>
+            </ul>
+            <p>بعد إكمال الشروط، قم برفع لقطات الشاشة (سكرينشوتات) كدليل.</p>
+        </div>
+
+        <div class="screenshot-upload" id="screenshotUpload">
+            <input type="file" id="screenshot" accept="image/*" multiple>
+            <button onclick="submitScreenshots()">إرسال السكرينشوتات</button>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.instagram.com/akram___trader" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Icon">
+                تابعني على الإنستغرام
+            </a>
+            <a href="https://www.tiktok.com/@akramtrader" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok Icon">
+                تابعني على تيك توك
+            </a>
+        </div>
+
+        <div class="developer">
+            تم التطوير بواسطة: <a href="https://www.instagram.com/akram___trader" target="_blank" style="color: #000;">AkramBajouli</a>
+        </div>
+    </div>
+
+    <script>
+        function startSendingFollowers() {
+            const username = document.getElementById('username').value;
+            if (!username) {
+                alert('الرجاء إدخال اسم المستخدم!');
+                return;
+            }
+
+            // إظهار رسالة التحميل
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('conditions').style.display = 'none';
+            document.getElementById('screenshotUpload').style.display = 'none';
+
+            // محاكاة عملية إرسال المتابعين
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('conditions').style.display = 'block';
+                document.getElementById('screenshotUpload').style.display = 'block';
+                alert('لقد استلمنا حسابك! لكن يبدو أنك لم تقم بالشروط المطلوبة. الرجاء إكمال الشروط ورفع السكرينشوتات.');
+            }, 3000); // انتظر 3 ثوانٍ لمحاكاة الإرسال
+        }
+
+        function submitScreenshots() {
+            const screenshots = document.getElementById('screenshot').files;
+            if (screenshots.length === 0) {
+                alert('الرجاء رفع لقطات الشاشة كدليل على إكمال الشروط.');
+                return;
+            }
+
+            // إظهار رسالة التحميل
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('conditions').style.display = 'none';
+            document.getElementById('screenshotUpload').style.display = 'none';
+
+            // محاكاة عملية التحقق
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('resultUsername').innerText = document.getElementById('username').value;
+                alert('تم تفعيل الخدمة بنجاح! سيتم إرسال المتابعين قريبًا.');
+            }, 3000); // انتظر 3 ثوانٍ لمحاكاة التحقق
+        }
+    </script>
+</body>
+</html>
